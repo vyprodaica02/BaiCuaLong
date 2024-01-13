@@ -1,0 +1,8 @@
+sử dụng lênh này khi chạy ở package manager console
+nhớ thay đoạn 
+Server=DESKTOP-F49D6LP 
+thành server SQL của mình
+Scaffold-DbContext "Server=DESKTOP-F49D6LP;Database=QLSV;Trusted_Connection=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+nếu không chạy dc source và nó báo .net 8 thì zo linh này cài
+https://dotnet.microsoft.com/en-us/download/dotnet/8.0
