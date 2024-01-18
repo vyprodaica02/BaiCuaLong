@@ -242,3 +242,8 @@ C:\Users\Duc\Desktop\New folder (6)\SQVL\SQVL\obj\Debug\net8.0-windows\ref\SQVL.
 C:\Users\Duc\Desktop\New folder (6)\SQVL\SQVL\obj\Debug\net8.0-windows\SQVL.ViewAdd.FormAddStudent.resources
 C:\Users\Duc\Desktop\New folder (6)\SQVL\SQVL\obj\Debug\net8.0-windows\SQVL.ViewAdd.AddCourses.resources
 C:\Users\Duc\Desktop\New folder (6)\SQVL\SQVL\obj\Debug\net8.0-windows\SQVL.ViewAdd.FormAddEnrollments.resources
+C:\Users\Duc\Desktop\New folder (6)\SQVL\SQVL\bin\Debug\net8.0-windows\Microsoft.AspNetCore.Http.Abstractions.dll
+C:\Users\Duc\Desktop\New folder (6)\SQVL\SQVL\bin\Debug\net8.0-windows\Microsoft.AspNetCore.Http.Features.dll
+C:\Users\Duc\Desktop\New folder (6)\SQVL\SQVL\bin\Debug\net8.0-windows\Microsoft.AspNetCore.Mvc.Abstractions.dll
+C:\Users\Duc\Desktop\New folder (6)\SQVL\SQVL\bin\Debug\net8.0-windows\Microsoft.AspNetCore.Routing.Abstractions.dll
+C:\Users\Duc\Desktop\New folder (6)\SQVL\SQVL\bin\Debug\net8.0-windows\Microsoft.Net.Http.Headers.dll

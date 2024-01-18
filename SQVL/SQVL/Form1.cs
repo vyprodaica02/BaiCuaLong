@@ -1,4 +1,5 @@
 using SQVL.ISerVices;
+using SQVL.Random;
 using SQVL.SerVices;
 using SQVL.ViewAdd;
 
@@ -9,6 +10,7 @@ namespace SQVL
         private readonly IStudents students;
         private readonly ICourses courses;
         private readonly IEnrollments enrollments;
+        private readonly Organzine organzine;
         private string nameGridView;
 
         public Form1()
@@ -17,6 +19,7 @@ namespace SQVL
             students = new StudentsServices();
             courses = new CoursesServices();
             enrollments = new EnrollmentsSerVices();
+            organzine = new Organzine();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -26,7 +29,7 @@ namespace SQVL
 
         private void Students_Click(object sender, EventArgs e)
         {
-            students.RloadStudent(dataGridView1);
+            organzine.RloadStudent(dataGridView1);
             nameGridView = "students";
         }
 
@@ -55,7 +58,7 @@ namespace SQVL
                     addCourses.Show();
                     break;
                 case "enrollments":
-                    FormAddEnrollments  formAddEnrollments = new FormAddEnrollments(dataGridView1);
+                    FormAddEnrollments formAddEnrollments = new FormAddEnrollments(dataGridView1);
                     formAddEnrollments.Show();
                     break;
             }

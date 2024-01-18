@@ -104,44 +104,34 @@ namespace SQVL.SerVices
 
                     if (selectedCourse != null)
                     {
-                        // Lấy giá trị CourseId từ đối tượng Course
                         int courseId = selectedCourse.CourseId;
-
-                        // Hiển thị hộp thoại xác nhận
                         DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
                         if (result == DialogResult.Yes)
                         {
                             using (var trans = qlsvContext.Database.BeginTransaction())
                             {
                                 try
                                 {
-                                    // Lấy đối tượng Course từ database
                                     var courseToDelete = await qlsvContext.Courses.FindAsync(courseId);
-
+                                    var EnrollmentHT = qlsvContext.Enrollments.FirstOrDefault(x => x.CourseId == courseId);
+                                    if (EnrollmentHT != null)
+                                    {
+                                        EnrollmentHT.CourseId = null;
+                                    }
                                     if (courseToDelete != null)
                                     {
-                                        // Xóa khóa học
                                         qlsvContext.Courses.Remove(courseToDelete);
-
-                                        // Lưu thay đổi vào database
                                         await qlsvContext.SaveChangesAsync();
-
-                                        // Commit transaction
                                         trans.Commit();
+                                        await RloadCourses(dataGridView);
                                     }
                                 }
                                 catch (Exception ex)
                                 {
-                                    // Nếu có lỗi, rollback transaction
                                     trans.Rollback();
-                                    // Hiển thị thông báo hoặc xử lý lỗi tùy ý
                                     MessageBox.Show($"Lỗi xóa khóa học: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
-
-                            // Reload lại dữ liệu
-                            await RloadCourses(dataGridView);
                         }
                     }
                 }

@@ -8,7 +8,6 @@ namespace SQVL.ISerVices
 {
     public interface IStudents
     {
-        public Task RloadStudent(DataGridView dataGridView);
         public Task addStudent(string name,string lastname,DateOnly ngaySinh,string email, DataGridView dataGridView);
     }
 }
