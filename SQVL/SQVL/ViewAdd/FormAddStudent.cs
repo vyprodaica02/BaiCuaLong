@@ -1,5 +1,7 @@
-﻿using SQVL.ISerVices;
+﻿using SQVL.ISerVices.student;
+using SQVL.Models;
 using SQVL.SerVices;
+using SQVL.SerVices.SRStudents;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,12 +27,14 @@ namespace SQVL.ViewAdd
 
         private async void button2_Click(object sender, EventArgs e)
         {
-            var textFirstName = FirstName.Text;
-            var LastName = textLastName.Text;
-            DateOnly ngaySinh = DateOnly.FromDateTime(textDateOfBirth.MaxDate);
-            var Email = textEmail.Text;
+            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn thêm sinh viên?", "Xác nhận thêm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+           Student student = new Student();
 
-            await students.addStudent(textFirstName, LastName, ngaySinh, Email, dataGridView);
+            student.FirstName = FirstName.Text;
+            student.LastName = textLastName.Text;
+            student.DateOfBirth = DateOnly.FromDateTime(textDateOfBirth.MaxDate);
+            student.Email = textEmail.Text;
+            await students.addStudent(student, dataGridView, result);
             this.Close();
         }
 

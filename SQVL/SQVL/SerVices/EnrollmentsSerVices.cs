@@ -135,7 +135,6 @@ namespace SQVL.SerVices
 
                                     if (enrollmentsToDelete != null)
                                     {
-                                        // Xóa sinh viên
                                         qlsvContext.Enrollments.Remove(enrollmentsToDelete);
                                     }
 

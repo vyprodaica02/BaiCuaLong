@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using SQVL.ISerVices;
+using SQVL.ISerVices.student;
 using SQVL.Models;
+using SQVL.SerVices;
+using SQVL.SerVices.SRStudents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,17 +15,19 @@ using BindingSource = System.Windows.Forms.BindingSource;
 
 namespace SQVL.Random
 {
-    public class Organzine 
+    public class Organzine
     {
         private readonly QlsvContext qlsvContext;
         private BindingSource bindingSource;
+        private readonly IDeleteStudent deleteStudent;
         public Organzine()
         {
             qlsvContext = new QlsvContext();
+            deleteStudent = new deleteStudentSr();
             bindingSource = new BindingSource();
         }
 
-        
+
         public async Task RloadStudent(DataGridView dataGridView)
         {
             var students = await qlsvContext.Students.ToListAsync();
@@ -78,52 +84,13 @@ namespace SQVL.Random
 
                     if (selectedStudent != null)
                     {
-                        // Lấy giá trị StudentId từ đối tượng Student
                         int studentId = selectedStudent.StudentId;
-
-                        // Hiển thị hộp thoại xác nhận
                         DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
                         if (result == DialogResult.Yes)
                         {
-                            using (var trans = qlsvContext.Database.BeginTransaction())
-                            {
-                                try
-                                {
-                                    // Lấy đối tượng Student từ database
-                                    var studentToDelete = await qlsvContext.Students.FindAsync(studentId);
-
-                                    if (studentToDelete != null)
-                                    {
-                                        // Lấy tất cả các bản ghi Enrollments có StudentId tương ứng với sinh viên
-                                        var enrollmentsToUpdate = qlsvContext.Enrollments.Where(e => e.StudentId == studentId);
-
-                                        foreach (var enrollment in enrollmentsToUpdate)
-                                        {
-                                            enrollment.StudentId = null;
-                                        }
-
-                                        // Xóa sinh viên
-                                        qlsvContext.Students.Remove(studentToDelete);
-
-                                        // Lưu thay đổi vào database
-                                        await qlsvContext.SaveChangesAsync();
-                                        // Commit transaction
-                                        trans.Commit();
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    // Nếu có lỗi, rollback transaction
-                                    trans.Rollback();
-                                    // Hiển thị thông báo hoặc xử lý lỗi tùy ý
-                                    MessageBox.Show($"Lỗi xóa sinh viên: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                }
-                            }
-                            // Reload lại dữ liệu
+                            await deleteStudent.DeleteStudent(studentId);
                             await RloadStudent(dataGridView);
                         }
-
                     }
                 }
             };
